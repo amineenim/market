@@ -1,8 +1,37 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Item
+from django.db.models import Q 
+from .models import Item, Category
 from .forms import NewItemForm, EditItemForm
 # Create your views here.
+
+# the corrsponding view to when the user wants to broese items
+def items(request):
+   query = request.GET.get('query','')
+   categorie = request.GET.get('category', 0)
+   items = Item.objects.filter(is_sold=False)
+   categories = Category.objects.all()
+
+   if categorie :
+      items = items.filter(category_id = categorie)
+
+   # if the query param in get is set
+   if query :
+      #filter items based on those who have name or description containing the query and insensitive
+      items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
+
+
+
+   return render(request, 'item/browse.html',{
+      'items' : items,
+      'query' : query,
+      'categories' : categories,
+      'categorie_id' : int(categorie)
+   })
+
+
+
+
 # this view corresponds to displaying detail about a given item nased on his id
 def detail(request, id) :
     # get the item for the given id 
@@ -64,3 +93,4 @@ def edit(request, id):
      'form' : form,
      'title' : "Edit Item"
   })
+
