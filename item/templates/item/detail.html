@@ -27,9 +27,22 @@
                     {{ item.description }}
                 </p>
             {% endif %}
-            <a href="#" class="inline-block mt-6 px-6 py-3 text-lg bg-teal-500 rounded-xl font-semibold text-white hover:bg-teal-700" >
-                Contact Seller 
-            </a>
+            {% if request.user == item.created_by %}
+                <div class="mt-6 p-6 bg-white rounded-xl flex flex-col items-center">
+                    <p> That's your Item!</p>
+                    <a href=" {% url 'item:edit' item.id %} " class="w-30 inline-block mt-6 px-8 py-3 bg-teal-400 hover:bg-teal-700 text-white font-semi-bold rounded-xl text-lg">
+                        Edit 
+                    </a>
+                    <a href="{% url 'item:delete' item.id %}" class="w-30 inline-block mt-6 px-6 py-3 bg-red-400 hover:bg-red-700 text-white font-semi-bold rounded-xl text-lg">
+                        Delete 
+                    </a>
+                </div>
+            {% else %}
+                <a href="#" class="inline-block mt-6 px-6 py-3 text-lg bg-teal-500 rounded-xl font-semibold text-white hover:bg-teal-700" >
+                    Contact Seller 
+                </a>
+            {% endif %}
+            
         </div>
     </div>
     <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">

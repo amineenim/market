@@ -1,0 +1,33 @@
+{% extends 'market/base.html' %}
+{% block title %}
+    LogIn
+{% endblock %}
+{% block contemt %}
+    <div class="w-1/2 p-6 my-6 mx-auto bg-gray-100 rounded-xl flex flex-col">
+        <h1 class="mb-6 text-3xl self-center">Sign In</h1>
+        <form method="post" action="." class="flex flex-col">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Username :</label><br/>
+                {{ form.username }}
+            </div>
+            <div class="mb-3">
+                <label class="inline-block mb-2">Password :</label><br/>
+                {{ form.password }}
+            </div>
+            {% if form.erros or form.non_field_errors %}
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {% for field in form %}
+                        {{ field.errors }}
+                    {% endfor %}
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <button class="py-3 px-8 text-lg text-white bg-teal-500 hover:bg-teal-700 mt-5 self-end rounded-xl">
+                Login 
+            </button>
+        </form>
+    </div>
+{% endblock %}

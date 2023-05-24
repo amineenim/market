@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# the url to be redirected to if not authenticated and trying to go to url that needs authentication
+LOGIN_URL = '/login/'
+# define the url to redirect to after login
+LOGIN_REDIRECT_URL = '/'
+# the url redirected to after logout
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 
@@ -39,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'market',
     'item',
+    'dashboard',
 ]
 
 MIDDLEWARE = [

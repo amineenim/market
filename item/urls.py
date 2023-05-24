@@ -5,5 +5,8 @@ from . import views
 app_name = 'item'
 
 urlpatterns = [
+    path('new/',views.new, name='newitem'),
     path('<int:id>/',views.detail, name='detail'),
+    path('<int:pk>/delete/', views.delete, name='delete'),
+    path('<int:id>/edit/', views.edit, name='edit')
 ]
