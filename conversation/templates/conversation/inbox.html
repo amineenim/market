@@ -1,0 +1,29 @@
+{% extends 'market/base.html' %}
+{% block title %}My Inbox{% endblock %}
+{% block contemt %}
+    <h1 class="w-full mb-8 py-4 text-3xl bg-gray-100 rounded-xl text-center">
+        My Conversations
+    </h1>
+    <div class="h-screen p-4 rounded-xl overflow-auto">
+        {% for conversation in conversations %}
+            <a href="{% url 'conversation:messages' conversation.id %}">
+                <div class="p-6 flex bg-gray-100 rounded-xl items-center mb-5 hover:bg-gray-400 hover:text-white hover:text-xl">
+                    <div class='pr-6'>
+                        <img src="{{ conversation.item.image.url }}" alt="item_image" 
+                        class="w-20 rounded-xl"/>
+                    </div>
+                    <div>
+                        {% for member in conversation.members.all %}
+                            {% if member != request.user %}
+                                <p class="mb-4">
+                                    <strong>{{member.username}} | {{conversation.modified_at}} </strong>
+                                </p>
+                                <p>{{ conversation.item.name }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

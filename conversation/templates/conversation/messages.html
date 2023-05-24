@@ -1,0 +1,22 @@
+{% extends 'market/base.html' %}
+{% block title %}My Messages{% endblock %}
+{% block contemt %}
+    <h1 class="w-full mb-8 py-4 text-3xl bg-gray-100 rounded-xl text-center">
+        My Messages
+    </h1>
+    <div class="h-screen p-4 rounded-xl overflow-auto">
+        {% for message in conversation.messages.all %}
+            <div class="px-8 py-3 rounded-xl mb-4 {% if message.created_by == request.user %} bg-blue-200 {% else %} bg-gray-200 {% endif %} ">
+                <p class="mb-4">
+                    <strong>{{ message.created_by.username }}</strong> at {{ message.created_at }}
+                </p>
+                <p>{{ message.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <form method="post" action="." class="flex flex-col" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="py-3 px-6 text-lg bg-teal-500 self-end hover:bg-teal-700 rounded-xl text-white">Send</button>
+    </form>
+{% endblock %}

@@ -26,5 +26,6 @@ urlpatterns = [
     # to urls.py file in the item namespace and look for the corresponding path
     path('items/', include('item.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('conversation/', include('conversation.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
